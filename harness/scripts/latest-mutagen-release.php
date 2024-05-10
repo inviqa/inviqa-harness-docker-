@@ -34,7 +34,7 @@ $osFamily = strtolower(PHP_OS_FAMILY);
 $hostArch = php_uname('m');
 $goArch = $goArchMap[php_uname('m')] ?? $hostArch;
 $releaseAssets = array_filter($latestStableRelease['assets'], function ($asset) use ($osFamily, $goArch) {
-    return preg_match("/^mutagen_.*${osFamily}.*${goArch}.*/", $asset['name']) > 0;
+    return preg_match('/^mutagen_.*' . preg_quote($osFamily, '/') . '.*' . preg_quote($goArch, '/') . '.*/', $asset['name']) > 0;
 });
 $releaseAsset = reset($releaseAssets);
 if (!$releaseAsset) {
