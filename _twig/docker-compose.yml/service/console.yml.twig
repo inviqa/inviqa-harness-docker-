@@ -23,6 +23,7 @@ services:
       # deprecated, a later workspace release will disable by default
       - traefik.enable=false
     environment: {{ to_nice_yaml(deep_merge([
+        @('app.build') == 'dynamic' ? @('services.console.build.args')|default({}) : [],
         @('services.console.environment'),
         @('services.console.environment_dynamic'),
         @('services.console.environment_secrets')
