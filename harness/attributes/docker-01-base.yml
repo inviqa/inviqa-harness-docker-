@@ -47,7 +47,13 @@ attributes.default:
       image: = @('mysql.image') ~ ':' ~ @('mysql.tag')
       config:
         options:
-          default_authentication_plugin: "= (@('database.platform') == 'mysql' && @('database.platform_version') >= 8.0 && @('database.platform_version') < 10.0 ? 'mysql_native_password' : '')"
+          default_authentication_plugin: >
+            = (
+                @('database.platform') == 'mysql' &&
+                @('database.platform_version') >= 8.0 &&
+                @('database.platform_version') < 8.4
+              ) ? 'mysql_native_password'
+              : ''
           ignore-db-dir: "= (@('database.platform') == 'mysql' && @('database.platform_version') < 8.0 ? 'lost+found' : '')"
           max_allowed_packet: 4M
       environment:
