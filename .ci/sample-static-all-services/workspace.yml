@@ -8,6 +8,10 @@ attribute('app.build'): static
 
 attributes:
   services:
+    console:
+      extends:
+        - _database-access
+        - _searchengine-access
     chrome:
       enabled: true
     elasticsearch:
