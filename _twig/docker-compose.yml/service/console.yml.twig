@@ -19,6 +19,10 @@ services:
 {% else %}
     image: {{ @('services.console.image') }}
 {% endif %}
+{% if @('host.os') == 'linux' %}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+{% endif %}
     labels:
       # deprecated, a later workspace release will disable by default
       - traefik.enable=false
